@@ -6,11 +6,7 @@ import {
   toggleTodoAsync,
   updateTodoAsync,
 } from "../redux/todos/services";
-import {
-  selectVisibilityFilter,
-  setEditTodo,
-  error,
-} from "../redux/todos/todosSlice";
+import { selectVisibilityFilter, setEditTodo } from "../redux/todos/todosSlice";
 import MessagePanel from "./MessagePanel";
 import { message, Popconfirm } from "antd";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
@@ -33,7 +29,7 @@ const TodoList = () => {
   const confirm = async (id) => {
     await dispatch(removeTodosAsync(id));
     editId === id && resetStates();
-    !error && message.success("Succesfully Removed");
+    message.success("Succesfully Removed");
   };
 
   const handleEditTodo = ({ id, title, completed }) => {
@@ -55,10 +51,9 @@ const TodoList = () => {
 
   const handleToggle = async ({ id, completed }) => {
     await dispatch(toggleTodoAsync({ id, data: { completed: !completed } }));
-    !error &&
-      (completed
-        ? message.error("Task Uncompleted")
-        : message.success("Task Completed"));
+    completed
+      ? message.error("Task Uncompleted")
+      : message.success("Task Completed");
   };
 
   useEffect(() => {
@@ -79,7 +74,9 @@ const TodoList = () => {
     "Enter",
     async () => {
       if (newValue.trim()) {
-        await dispatch(updateTodoAsync({ id: editId, data: { title: newValue } }));
+        await dispatch(
+          updateTodoAsync({ id: editId, data: { title: newValue } })
+        );
         resetStates();
       } else {
         message.error("Cannot be empty");
