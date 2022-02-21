@@ -63,8 +63,7 @@ const TodoList = () => {
   useKeypress(
     "Escape",
     () => {
-      dispatch(setEditTodo({ id: editId, editing: false }));
-      resetStates();
+      handleExitEdit({ id: editId, editing: false });
     },
     newValue,
     editId
@@ -77,6 +76,7 @@ const TodoList = () => {
         await dispatch(
           updateTodoAsync({ id: editId, data: { title: newValue } })
         );
+        message.success("Succesfully Updated");
         resetStates();
       } else {
         message.error("Cannot be empty");
