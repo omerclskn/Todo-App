@@ -5,7 +5,6 @@ import {
   visibilityFilter,
   getUncompletedCount,
   getTodosCount,
-  error,
 } from "../redux/todos/todosSlice";
 import { removeCompletedAsync } from "../redux/todos/services";
 import { message } from "antd";
@@ -35,7 +34,7 @@ const ContentFooter = () => {
 
   const handleRemoveCompleted = async () => {
     await dispatch(removeCompletedAsync());
-    !error && message.success("Completed Tasks Removed");
+    message.success("Completed Tasks Removed");
   };
 
   return (
