@@ -5,7 +5,6 @@ import {
   untoggleAllAsync,
   addTodoAsync,
 } from "../redux/todos/services";
-import { error } from "../redux/todos/todosSlice";
 import { message, Tooltip } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 
@@ -16,20 +15,18 @@ const Form = () => {
   const addLoading = useSelector((state) => state.todos.addLoading);
 
   const handleToggleAll = () => {
-      isAllChecked ? dispatch(untoggleAllAsync()) : dispatch(toggleAllAsync());
-      if (!error) {
-        isAllChecked
-          ? message.success("All todos are checked")
-          : message.success("All todos are unchecked");
-      }
-      setIsAllChecked(!isAllChecked);
+    isAllChecked ? dispatch(untoggleAllAsync()) : dispatch(toggleAllAsync());
+    isAllChecked
+      ? message.success("All todos are checked")
+      : message.success("All todos are unchecked");
+    setIsAllChecked(!isAllChecked);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (value.trim()) {
       await dispatch(addTodoAsync({ title: value }));
-      !error && message.success("Todo added successfully");
+      message.success("Todo added successfully");
       setValue("");
     } else {
       message.error("Please finish editing todos");
