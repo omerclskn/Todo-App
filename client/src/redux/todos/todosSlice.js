@@ -158,8 +158,6 @@ export const hasEditingTodo = (state) => state.todos.hasEditingTodo;
 
 export const visibilityFilter = (state) => state.todos.visibilityFilter;
 
-export const error = (state) => state.todos.error;
-
 export const getUncompletedCount = (state) =>
   state.todos.items.filter((item) => item.completed === false).length;
 
